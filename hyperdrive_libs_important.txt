@@ -1,0 +1,9 @@
+from azureml.core import Experiment
+from azureml.train.sklearn import SKLearn # this is how to create an Hyperdrive ESTIMATOR 
+# hp selection policy
+from azureml.train.hyperdrive import GridParameterSampling
+# early stopping policy
+from azureml.train.hyperdrive import BanditPolicy
+# PrimaryMetricGoal -> this the desired metric evaluation 
+from azureml.train.hyperdrive import HyperDriveConfig, PrimaryMetricGoal, choice
+from azureml.widgets import RunDetails
