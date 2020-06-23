@@ -1,0 +1,211 @@
+https://docs.microsoft.com/en-us/learn/certifications/exams/dp-100
+https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RE3VUjA
+
+
+portal.azure.com
+https://github.com/a-forty-two/sasoldp100
+https://www.microsoftazurepass.com/
+ - please sign in/sign up with personal email id 
+
+- shantanu@meteoros.in
+
+- Welcome back!
+
+Agenda for next 3 days:
+Day 1- Data Science
+Day 2- More Data Science + Data Engineering (a lot of)
+Day 3- essentials of monitoring and understanding models
+
+Daily Agenda:
+- Attendance when audience arrives (sorry, forced to)
+- 2 breaks + 1 lunch break (very important) 
+
+
+************* Azure Concepts **************
+- Azure Active Directory 
+	- Enables users and GROUPS on cloud
+	- share resources, permissiong etc. with them
+	- ROLE BASED ACCESS CONTROL
+    1) Users and Groups-> unique ID for auth
+	-> email, emp ID
+	-> USER PRINCIPAL NAME
+    2) Device, App, Service-> auth w/o password
+	-> URL or URL or IP with port no.
+	-> SERVICE PRINCIPAL NAMES
+-> EVERY resource has it's OWN permissions
+	- basic permissions on ALL resources
+	- Creator-> can do every OWNER thing except
+		change permissions
+	- OWNER-> can do everything
+	- READER-> READ-only permissions, cannot
+		change anything
+-> STORE Audit Logs 
+
+
+
+- Resource Groups-> LOGICAL namespaces not physical
+	- help group resources
+	- manage lifecycle-> resources supposed to be created &
+	deleted together are to be in SAME resource group
+	- DB + Java API + HTML/CSS/Jquery
+	-> Angular replacing Jquery
+	-> to del JQuery and NOT DB or API-> diff RGs!
+-Region
+- is my data sensitive- GDPR, SSN, ... PII, SPDI... credit cards
+	- data cannot leave the LEGAL geography
+	- put it in the right region
+
+- else-> CHEAPEST-> East US, Korea South 
+-> Automatic backups happen between regions-> PAIRED regions
+https://docs.microsoft.com/en-us/azure/best-practices-availability-paired-regions
+
+-> COMPLIANCE-> legal/geographic in nature
+ - PROVIDED by cloud as infra, but users are supposed to IMPLEMENT
+https://azure.microsoft.com/en-in/overview/trusted-cloud/compliance/
+
+-> in PRIVATE in nature, wrt BUSINESS not neces. under 'compliance'
+	=> employee info, sales data, customer info
+Azure-> KeyVault -> STORES secrets without needing to share
+with DEVELOPERS, data retention and hardware-encryption.
+- Customers can bring their own keys!
+
+ETL-> extract, transform, load (On premise)
+ELT -> extract, LOAD into the cloud, then keep transforming!
+	- minimize the latency between storage and compute
+	- storage is TOO cheap-> much cheaper than on prem
+	- HIGHLY and ALWAYS available, with fault tolerance,
+	backup, recovery, disaster recovery, failover etc etc 
+
+
+BLOB-> binary large object
+	-> files are broken and stored as binary streams
+	-> very cost effective storage
+********* Azure ML ************
+- DataStore-> Physical Infrastructure holding data
+	(data lake, sql server, mysql server...)
+- DataSet -> representation of data from DataStore
+	=> not actual data 
+- DataFrame -> actual data framed out of dataset 
+	-:> select ops, pd.read_csv,etc.
+	=> actual data in RAM ready for computation
+
+- Local File System
+	- Cloud resources are EITHER COMPUTE or STORAGE
+	- ML Studio-> Compute Resource
+	- Storage is-> BLOB Storage 
+
+
+-> We 'run' an 'experiment'
+	-> each experiment is a SETTING that you 'run' multiple times
+
+Every ML activity in Az is an EXPERIMENT
+	- consists of multiple RUNS
+	- RUNS are parallel executions of Experiment with different
+	hyperparameters (algorithms, regularization, learning rate, 
+	tree_depth)
+- BEST RUN of all-> model is available for download or deployment!
+
+ML-> ALWAYS on CLUSTER
+- training clusters
+		-> non-kubernetes, hence lower cost to manage
+		-> scale down when not in use (hence excess billing avoided)
+		-> contain dev libs and open ports, CANNOT be used
+		for production(INFERENCE)
+	-> LINUX clusters-> without SSH on port 22, you won't be
+	able to log in to machine
+
+CPU-> faster -> execution of VERY small instruction
+GPU-> LARGER input/throughput-> much more complex calc at slower speed
+Virtual Machine Sizes
+	A,B,D -> general purpose machines 
+	DS -> data science machines (libs, and h/w) 
+	N -> NVidia GPU machines (Tesla)
+
+Memory Optimized-> better ram
+Compute Optimized-> better CPU
+Store Optimized-> better disk 
+GPU Optimized-> heavy graphics calculation
+
+Each Machine on cluster-> allows 1 parallel RUN execution
+6 nodes-> 6 parallel runs can happen
+
+SOME RUNS will perform better than others!
+	-> why should POOR runs execute and waste resources??
+	-> STOP them early instead!
+
+Automated ML-> we don't want to look at DATA -> directly get a BRUTE
+	FORCE model
+
+EDA-> Notebooks -> Python code matplotlib-> graphs
+
+********* ML Pipelines*****************
+-> ASSEMBLY LINE like clusters
+	-> 1 light CPU cluster, 1 GPU cluster
+Data Cleaning/wranging/analysis etc-> Cluster 1
+ML -> Cluster 2
+Scoring and Evaluation -> Cluster 1 again!
+
+-> HIGHLY available and PRODUCTION use case pipelines 
+	-> BATCH (call it-> function, event, schedule)
+	-> or REAL-TIME inference (REST endpoint to make HTTP calls)
+
+-> avoid SINGLE point of FAILURES!
+-> BEHIND the scenes, it is still CODE AUTOMATION
+	-> can create them via UI or python programs 
+
+Facing issues on TEAMS-> please hold
+
+Automated ML
+Missing Data/Null values:
+- handle it-> replace with mean, median, mode or custom value
+- drop it-> rows, column
+
+Z-Score-> -inf to +inf -> >3, and <-3 is an outlier 
+tanh -> scales for -1 to 1
+
+Split-> randomized split, relative exp (>3, <=-5 and so on), regex
+
+Stratified SPlit-> weakly represented classes can be further under
+represented upon splitting-> during DISTRIBUTION the class ratios 
+will be presrved -> good for classification activities 
+
+
+
+****** Deployments********
+.pkl file-> representation of model
+Deploy it automatically -> dependencies must be mentioned
+	-> YML file (XML or JSON-> space and - are used for formatting)
+
+-> Web Service-> Web APIs or front ends (chatbots), or SDK
+-> Containers-> Azure Container Instances, or Az Kubernetes Service
+(ACI and AKS)
+-> Pipeline Endpoint (REAL TIME or BATCH)
+	-> What i've built-> TRAINING PIPELINE
+Az is going to OPTIMIZE this pipeline by compressing all operations
+into simple mathematical formulae (Apply Transformation)
+-> this pipline-> PRODUCTION READY (INFERENCE STAGE)
+	-> Real Time (REST ENDPOINT)
+	-> Batch (need to be executed by other processes) 
+
+Ream Time Inf. Pipeline-> Web Service component for I/p and O/p
+- Security and SCALABILITY<- manage for all products
+
+
+For Inference (Production): KUBERNETES
+	-> on-prem or on cloud
+	-> HIGHLY available (unless failure, doesn't go down)
+	-> minimum of 3 nodes -> each node min 4 cores! 
+-> Pipeline and Automated ML have AKS as preferred target 
+	(Enterprise Use cases)
+-> Notebooks are free to choose WHATEVER they decide 
+
+Good to reads:
+https://www.stitchdata.com/resources/oltp-vs-olap/#:~:text=OLTP%20and%20OLAP%3A%20The%20two,historical%20data%20from%20OLTP%20systems.
+
+my.visualstudio.com-> a lot of free resource and Az credits
+
+tradeoff-> bias and variance -> hyperparam for tree based algos 
+	(DecisionTree, Dec.Forest, RandomForest, DecisionJungle,...)
+Algos & hyperparams-> https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/anomaly-detection
+
+ONNX-> open neural network exchange
