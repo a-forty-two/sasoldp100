@@ -1,0 +1,231 @@
+Dp100-> Day 2
+-> Quick summary of ML
+-> Deployment of pipelines-> doing today
+-> More DS (notebooks), Data Engineering 
+
+https://github.com/a-forty-two/cylons
+https://github.com/MicrosoftLearning/DP100 <- ALL LABS are important 
+
+AutomatedML-> 'bestModel' -> 93-95% accuracy 
+
+portal.azure.com
+ml.azure.com => ML studio 
+
+y = mx + c
+diagnosis = weights * (radi... fract_dim) + bias 
+
+
+2 ways: new algo from scratch (advanced)-> matrix, pnc, linear alegbra, 
+	set theory, graph theory, probability, data structures-> tree, DAG
+-> Scikitlearn, Keras -> prebuilt models -> this notebook data.csv
+
+ACI-> single vm cost (min 4 cores) 
+AKS -> always available (running VM cost per core X 12 cores)
+Pipeline Execution (Batch Processes) 
+
+2 kinds of metrics to LOG in a RUN:
+1) FLOAT/INT/DECIMAL-> for plotting purposes
+2) string -> for LOGGING purpose not plotting
+
+https://github.com/a-forty-two/sasoldp100
+
+https://notebooks.azure.com/shanuapril/projects/shinchan
+
+RUN:
+-> Initialize a run
+-> LOG everything (otherwise printed)
+-> Dump your model in file system
+-> Register your model in the run
+-> run.complete()
+
+
+ registering ONLY the best model
+
+
+********* Early Stopping- Hyperdrive*****
+
+AutomatedML -> TIME and Min_performance_threshold
+
+all POOR RUNS were dropped 
+
+Python (SDK): [RUN dropping algos]
+- Bandit Policy (formula-> slack factor/amount)
+- Truncation Policy (Min_performance_threshold)
+- Median Policy (all 50% poor performers dropped)
+- None
+
+- DELAY_EVALUATION: to create some RUN history so that
+best and worst runs can be isolated
+	-> 5 
+- EVALUATION_INTERVAL-> how frequently the RUNS are
+	evaluated -> 1 -> every run!
+
+
+
+Hyperparter selection:
+-> brute force-> GRID SEARCH -> exhaustive TRUTH table and respective
+outputs for HYperparams! -> by min or max that output, you could 
+select best hyperparams! 
+-> faster approach-> Randomized Search-> 'workable' set of Hyperparams
+not the best set. 
+
+
+https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters
+
+for R programmers: https://azure.github.io/azureml-sdk-for-r/index.html
+
+
+Resume-> 1:50 
+-> Grid Search quick recap 
+	-> SARIMAX for time series 
+
+Storages:
+- Blob- linked-list or flat storage (large IoT => low cost)
+vs
+- Data lake - heirarchial or tree storage (Enterprise IoT, comparitively expensive than blob)
+	- enables Access Control List (who can access what precisely)
+	-> CONTAINERS-> not FOLDERS 
+		- contain folders
+		- File Systems 
+		- independent security, access, encryption etc.
+			-> Shared Access Signature (temp access) 
+		- account level access possible bypassing all rules
+			-> Account.key
+
+Share blobs with users-> SAS
+Longer auth of apps -> account key 
+
+- Tables -> NOSQL tables (small IoT data)
+
+- Files -> SMB file sharing 
+
+- Queue -> Inter-az app communication for FCFS messages 
+	-> whenever a new message arrives, analyze it's sentiment 
+	-> Az Storage Queue + MS Cognitive Services 
+
+
+
+Replication:
+Web Dev-> Replicate where the users are-> Geo, Locally, Regional/Zonal
+
+Data Collection-> Read-level GENERAL Availability throughout
+	-> RA-GRS (read access globally redundant)
+	-> cheaper than GRS, read availability during FAILURE
+
+Data Analysis-> lowest cost -> locally redundant
+	-> LRS (locally redundant)
+
+
+********* Data Factory********
+- For ELT operations
+- ETL can also be done-> using Data Flow (E-> transform -> before load)
+- helps build Pipelines and for orchestration or workflows
+- can invoke other azure/on-prem/other-cloud components (with permission)
+
+predefined Interation Runtimes -> SQL server or mysql or mongodb
+or hbase or S3 or GCP BigQuery-> every thing is PRE CONFIGURED
+
+
+JSON-> web 
+CSV-> IoT
+Avro-> streaming (games/IoT)
+Parquet-> Apache Spark 
+ORC-> optimized rows & cols 
+
+
+Triggers: -> when to automatically run the pipeline
+	- Event-> blob created/deleted
+	- Schedule -> sun at 6 pm 
+	- Tumbling Window-> LONGER schedules (small batches) 
+
+Billing-> each pipeline EXECUTION
+
+
+
+
+- data sql-> hosted in a VM could be data source!
+
+******* Edge Computing ********
+-> Intelligence is running on device itself(y=mx+c-> extracted model) 
+	=> network unavailability
+	=> quick decisions, no latency
+	=> private intelligence (no server/cloud involved)
+
+-> Edge = Server + Client but on DEVICE ITSELF!
+
+=> RaspberryPi=> Linux/Windows=> Py Flask API
+				=> Client app 
+
+Hospital Bed
+	=> heartbeat sensor-> heart stroke-> IMMEDIATE ACTION!
+			-> Client App to activate bed position
+			-> send out SMS/notification/calls to concerned attendents
+	=> sneeze sensor-> event -> stored locally and analyze later
+
+-> AI-> Monitor, Secure and upgrade the model post deployment 
+	- often hard coded -> https://github.com/jedijulia/porter-stemmer
+	-> we need cloud to periodically update info on parameters above
+-> Deployment-> FPGA-> Field Programmable Gate Arrays  
+	
+
+IoT hub v/s Event Hub
+
+-> bidirection v/s Uni-direction
+-> cloud to device and device to cloud; v/s only source to destination
+
+Big Data-> Volume, Variety, Velocity
+
+****Out of course*********
+
+https://docs.microsoft.com/en-us/azure/architecture/best-practices/data-partitioning
+
+
+Variety-> (out of DP100)
+	- Telemetry-> thermometer-> temp, primary measure of device
+	- Operational -> monitoring, security, battery status, 
+		health of components
+	- Configuration/Lifecycle-> Firmware, Remote control, enabling ports
+		- on/ff
+-> MQTT-> message queue transmissions,
+ AMQP-> advanced messaging queuing protocol 
+
+
+BCA ML problem in Scala(Apache Spark)-> https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/596816822991964/251039699341097/1899624237163506/latest.html
+
+
+
+
+
+*** Time series analysis**
+
+COMPLEX GRAPH-> 
+	-> SEASONS or PERIOD or REPEATATION
+	-> direction in which was traveling 
+		-> slope of each point
+	-> external factors: NOISE or RESIDUE 
+
+BREAK the graph down-> Seasons, Trend, Residue/Noise 
+
+AR I MA -> Auto Regressions integrated Moving Averages
+
+Hyperparameters:
+-> All graphs are NOT perfect-> all our factors may not always play role
+example possibility:
+better predictions with just Auto Regression on Seasons, and maybe
+Moving Averages on Residue-> then what was the use of trend?
+
+hyper-> whether to use these algos or not-> COMBINATIONS 
+
+GRID SEARCH SPACE-> exhaustively create a TRUTH table (1-0) w.r.t. HPs
+GRID Search Function-> a metric to maximize/minimize
+Hypothetical grid search:
+AR I MA  S (p, d, q) => AIC (minimize)
+1  0  1  (1, 1, 0, 1) => 128 (algo 1)
+0 1  1   (1, 1, 1, 1) => 178 (algo 2)
+0 0 1    (0, 1, 0 ,1 )=> exception-> invalid RUN (cancelled RUN)
+....
+....
+
+because 128 < 178 (AIC), hence algo 1 is better than algo 2
+
+https://towardsdatascience.com/random-search-vs-grid-search-for-hyperparameter-optimization-345e1422899d
