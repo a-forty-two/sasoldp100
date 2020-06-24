@@ -175,7 +175,201 @@ IoT hub v/s Event Hub
 
 Big Data-> Volume, Variety, Velocity
 
+Welcome to day 3! we'll get started shortly!
+
+Agenda:
+1) Data Analysis-> more data engineering components
+2) ML Studio-> ALL pipeline functionality review
+	+ DataDrift 
+3) little bit of AI (just to get the feel)
+4) anything else you'd like (out of course topics included)
+	(let me know by break time-> so that we can make time for it)
+5) Exam overview 
+	- Adaptive Learning => tough questions is a good news
+	- 700 out of 1000-> pass
+	- 3 hours including setup time (closed book)
+	- 32 - 48 questions 
+	- Data Scientist Associate-> no labs, 
+	- scenario based questions 
+		-> passage, data visualization, data preview, basic analysis
+		-> decision-> what solution to use, how would you 
+			design/implement 
+	- operations & security based questions
+	- MCQ (single or multiple correct), arrange in the right 
+		sequence, fill in the blanks (drop downs),
+		YES/NO-> problem statement-> a solution statement
+			- whether solution is right 
+			- you cannot review or go back
+eg... 
+	We have to implement SSL security in ACI
+	- solution-> go to portal and upload the SSL certificate
+	- log into SSH and then configure SSL 
+	AKS-> kubernetes 
+	Scalability-> cluster autoscaler for AKS
+
+******* Data Analysis*********
+DataBricks-> Apache Spark + DbUtils (data brick utilities)
+	-> SQL (HIVE, PIG), PySpark, R, Scala 
+Spark-> In memory calculation (Disk also)
+	-> SparkContext(everything in RAM), SQLContext(HIVE) -> batch,
+		StreamContext -> consuming stream
+
+- clusters
+	- standard
+	- high concurrency -> shared infra for multiple teams 
+		-> data scientists, data analysts, test a model
+
+-> DataBricks (Participate in orchestration, workflow creation) 
+
+https://adb-4306270620392202.2.azuredatabricks.net/?o=4306270620392202
+
+?o=digits -> URL params 
+Security-> Az Secret page (not available in UI) to interact with KeyVault
+	?o=4306270620392202#secrets/createScope
+
+keyVault Scope-> 
+
+
+
+- Data Drift 
+- Alerts, logs and Monitoring 
+- AI on Azure-> using predefined models (good to know, out of DP100
+	beyond general reference) 
+
+Data Scinece Virtual machines
+https://docs.microsoft.com/en-us/azure/machine-learning/data-science-virtual-machine/tools-included
+Most tools-> LINUX 
+
+
+
+
+
+********** Security************
+Any Az Storage resource-> Failover-> Primary key becomes secondary,
+	and secondary becomes primary. Secondary readonly becomes
+read/write and vice versa. 
+
+https://docs.microsoft.com/en-us/azure/azure-databricks/store-secrets-azure-key-vault
+Key Vault-> meant to store SECRETS
+	- connection strings, account keys,certificates  
+	- doesn't include-> user passwords
+	- Replaced only at RUNTIME-> directly in RAM
+	- supports HARDWARE SECURITY MODULE-> HSM
+Soft delete-> recycle bin-> files can be restored 
+
+Retention period (days)-> 90 days (example)
+
+Purge protection-> cannot del a res. for <Retntn period> no. of days
+
+	-> ready made AI -> GK level only (AI100)
+	-> Alerts, Logging and Monitoring 
+
+Secrets-> certificates (file upload) or Manual (connection string, keys, SAS)
+	-> Account URL: jackfruit.blob.core.windows.net
+	-> Container: bca
+	-> filename: data.csv 
+	-> Key1: HbEfeH5DD/JpIuXnS5NJ47CNeZ8hD7bLyylxioBBsTS7RzrPSHyvZFH5EC7apzzHx0u3rjH5tJ85BYeBQL1Ayg==
+Key Vault:
+	- Secret key: williamwallace (given to data analyst or devs)
+	- KeyVault: https://kublaikahn.vault.azure.net/
+	- ResourceID: /subscriptions/353b9ff5-223a-4dc4-853e-825bc329d30c/resourceGroups/panda/providers/Microsoft.KeyVault/vaults/kublaikahn
+DataBricks:
+	- Scope name: robinhood
+	- ?o=digitis#secrets/createScope (will be done by DBricks admin)
+	
+Big data-> how much RAM to select?
+	-> at least 3 copies of your data
+	-> 100MB-> in ram-> 300 MB
+	-> 1 GB-> in ram-> 3 GB
+	-> 1 TB-> 3 TB ram-> multiple machines (RAM is additive) 
+
+
+Logging and Monitoring
+	- Log Analytics: strings-> search 
+	- Monitor : metrics-> plot
+		- Application Insights
+
+3 targets -> 
+	- Analyze it right now-> Log Analytics and Monitor
+	- Analyze it later -> BLOB Storage 
+	- Stream it to other resources-> Event Hub
+
+3:50 <- resuming time 
+
+
+
+VMs-> installed a Monitoring Software in a parallel VM
+App Services-> PaaS -> no console access
+	-> MONITORING via Application Insights 
+
+AI-> rest endpoints-> App Services-> monitored by App Insights 
+
+App Services and DOCKER Containers/Azure COmpute Instance-> App Insights
+Virtual Machines -> set it up manually
+
+
+Entire ML on command line (no portal): az extension add -n azure-cli-ml
+https://docs.microsoft.com/en-us/azure/machine-learning/reference-azure-machine-learning-cli
+
+
+******* Data Monitoring-> Data Drift*********
+Challenge-> Data Changes over a period of time 
+ -> helps calculate a tiny error on time function 
+ -> calculating drift on training v/s inference data 
+
+
+**** IMPORTANT- ML Pipeline options ******
+
+Convert To Indicator values-> LABEL ENCODING
+	[ 'Cape Town', 'Bengaluru'] -> [0, 1]
+
+Conver data into Bins-> Frequency distributions, histograms etc.
+
+Stratified v/s SMOTE -> 
+distributing underpresented classes v/s generating data for them 
+
+SMOTE-> tries to find central tendency-> and updates underrepr. label
+	accordingly
+X     Y    SMOTE    Xnew   Ynew
+100   20    100% -> 100     66 (approx)
+            200% -> 100     85 (approx)
+	    300% -> 100     120 (imblanced again!) 
+SMOTE more than 200% is NOT recommended 
+https://docs.microsoft.com/en-us/azure/machine-learning/algorithm-module-reference/smote
+
+
+ANOVA v/s Linear Disc. Analasys -> discrete v/s continous data
+
+Some SPECIAL MODELS:
+	-> score Matchbox -> recommendation engine
+	-> Pytorch -> special model training 
+	-> computer vision -> special model 
+	-> CLUSTER -> K Means 
+	-> Analmoly Detection-> Fraud Detection, user behavior, malware analysis 
+
+https://github.com/MicrosoftLearning/DP100
+
+
+Brute Force-> SSH enable (22 port)
+	-> linux file system=> pipeline modules
+	-> pid -> Kubernetes 
+
 ****Out of course*********
+
+-> SNAIL-> 10m/s-> 33-> 1187 
+	every second-> speed reduced by half
+ how many seconds-> will it travel 20 metres?
+
+x + x/2 + x/4....
+-> 3 -> oversampling 
+
+Pandas DF v/s Spark DF-> DF-> single machine v/s CLUSTERS
+	- Pandas->smaller size (cannot exceed Ram of 1 machine)
+https://www.kdnuggets.com/2016/01/python-data-science-pandas-spark-dataframe-differences.html
+Deployments-> Portal/SDK/API-> resources
+	Portal-> Fixed settings/limited options
+	SDK/API-> ALL the configurations/custom configurations
+	Custom Deployment-> TEMPLATES (UI/JSON/Azure-> CMD/bash/ps)
 
 https://docs.microsoft.com/en-us/azure/architecture/best-practices/data-partitioning
 
@@ -193,6 +387,20 @@ Variety-> (out of DP100)
 BCA ML problem in Scala(Apache Spark)-> https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/596816822991964/251039699341097/1899624237163506/latest.html
 
 
+2 kinds of programming languages:
+	- imperative v/s declarative 
+-> how to do, and what to do  - what to do, computer will decide how to
+-> C++, Python, C, assembly    - HTML, neural networks, CSS, PySpark, TensorFlow, Scala
+
+		             Imp           Dec
+a=1             a=?           1             ok 
+b=2             b=?           2             ok
+c=a+b           c=?           3             ok
+print(c)        print c       3             do_the_calc()->3
+
+
+Declarative Languages-> Directed Acyclic GRAPH (LAZY EVALUATION)
+Python (ease of coding) -> precompiled C++ (performance)
 
 
 
